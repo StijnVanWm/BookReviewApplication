@@ -1,10 +1,10 @@
-package com.backend.bookreviewapi;
+package com.springboot.bookreview;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BookreviewapiApplicationTests {
+class SpringbootBookreviewRestApiApplicationTests {
 
 	@Test
 	void contextLoads() {

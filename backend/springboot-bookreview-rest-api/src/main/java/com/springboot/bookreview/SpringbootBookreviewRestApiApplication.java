@@ -1,13 +1,13 @@
-package com.backend.bookreviewapi;
+package com.springboot.bookreview;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BookreviewapiApplication {
+public class SpringbootBookreviewRestApiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BookreviewapiApplication.class, args);
+		SpringApplication.run(SpringbootBookreviewRestApiApplication.class, args);
 	}
 
 }

@@ -1,4 +1,7 @@
 import { useState } from "react";
+import "../styles/Signup.css"
+
+//useFormik
 
 const Signup = () => {
 
@@ -13,7 +16,7 @@ const Signup = () => {
     const submit = (e) => {
         e.preventDefault();
 
-        //TODO validate fields and call adduser api
+        //TODO validate input and call addUser api
 
 
     }

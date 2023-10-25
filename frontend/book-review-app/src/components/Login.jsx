@@ -9,9 +9,8 @@ const Login = () => {
     const submit = (e) => {
         e.preventDefault();
 
-        //TODO validate username and password for login call api (not implemented yet)
-        console.log(username);
-        console.log(password);
+        //TODO validate username and password (from api)
+        
 
     }
 
