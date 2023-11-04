@@ -22,21 +22,21 @@ public class RoleController {
     }
 
 
-    //GET: http://localhost:8080/api/roles
+    //GET: api/roles
     @GetMapping
     public ResponseEntity<List<RoleDto>> getAllRoles() {
         return ResponseEntity.ok(roleService.getAllRoles());
     }
 
-    //GET: http://localhost:8080/api/roles/1
+    //GET: api/roles/1
     @GetMapping("{id}")
-    public ResponseEntity<RoleDto> getRoleById(@PathVariable(name = "id") long roleId) {
+    public ResponseEntity<RoleDto> getRoleById(@PathVariable(name = "id") Long roleId) {
 
         return new ResponseEntity<>(roleService.getRoleById(roleId), HttpStatus.OK);
 
     }
 
-    //POST: http://localhost:8080/api/roles
+    //POST: api/roles
     @PostMapping
     public ResponseEntity<RoleDto> addRole(@RequestBody RoleAddDto roleAddDto) {
 
@@ -50,9 +50,9 @@ public class RoleController {
 
     }
 
-    //DELETE: http://localhost:8080/api/roles/5
+    //DELETE: api/roles/5
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> deletePost(@PathVariable(name = "id") long roleId) {
+    public ResponseEntity<Void> deletePost(@PathVariable(name = "id") Long roleId) {
 
         roleService.deleteRole(roleId);
 
