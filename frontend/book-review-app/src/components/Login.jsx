@@ -1,15 +1,29 @@
 import { useState } from "react"
 import "../styles/Login.css"
+import axios from "axios"
 
 const Login = () => {
 
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [user, setUser] = useState({
+        username: '',
+        password: ''
+    })
 
+    const handleInput = e => {
+        const { name, value } = e.target;
+        setUser({...user, [name]: value});
+    }
+ 
     const submit = (e) => {
         e.preventDefault();
 
         //TODO validate username and password (from api)
+        axios.post(`https://localhost:7050/api/gebruikers`, {
+            gebruikerNaam: user.username,
+            password: user.password
+        })
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
         
 
     }
@@ -25,12 +39,12 @@ const Login = () => {
 
                     <div className="form-input">
                         <label>Username</label>
-                        <input type="text" onChange={(e) => setUsername(e.target.value)} placeholder="username"></input>
+                        <input type="text" name="username" onChange={handleInput} placeholder="username"></input>
                     </div>
 
                     <div className="form-input">
                         <label>Password</label>
-                        <input type="password" onChange={(e) => setPassword(e.target.value)} placeholder="password"></input>
+                        <input type="password" name="password" onChange={handleInput} placeholder="password"></input>
                     </div>
 
                     <button type="submit">Login</button>
