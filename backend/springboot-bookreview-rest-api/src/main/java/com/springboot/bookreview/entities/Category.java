@@ -2,19 +2,24 @@ package com.springboot.bookreview.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
-@Table(name = "categories", uniqueConstraints = {@UniqueConstraint(columnNames = {"name"})})
+@Table(name = "categories")
 public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     @Column(name = "isDeleted", nullable = false)
     private boolean isDeleted = Boolean.FALSE;
+
+    @OneToMany(mappedBy = "category")
+    private Set<Book> books;
 
     public Category() {}
 

@@ -22,8 +22,11 @@ public class PublisherServiceImpl implements PublisherService {
 
     @Override
     public List<PublisherDto> getAllPublishers() {
-        return publisherRepository.findAll().stream().map(publisher
-                -> mapEntityToDto(publisher)).collect(Collectors.toList());
+        return publisherRepository
+                .findAll()
+                .stream()
+                .map(publisher -> mapEntityToDto(publisher))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -55,7 +58,7 @@ public class PublisherServiceImpl implements PublisherService {
 
     }
 
-    private PublisherDto mapEntityToDto(Publisher publisher) {
+    public static PublisherDto mapEntityToDto(Publisher publisher) {
 
         PublisherDto publisherDto = new PublisherDto();
         publisherDto.setId(publisher.getId());

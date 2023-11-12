@@ -61,7 +61,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
 
-    private CategoryDto mapEntityToDto(Category category) {
+    public static CategoryDto mapEntityToDto(Category category) {
 
         CategoryDto categoryDto = new CategoryDto();
         categoryDto.setId(category.getId());

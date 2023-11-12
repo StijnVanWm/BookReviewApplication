@@ -53,7 +53,7 @@ public class AuthorServiceImpl implements AuthorService {
         authorRepository.delete(authorFromDb);
     }
 
-    private AuthorDto mapEntityToDto(Author author) {
+    public static AuthorDto mapEntityToDto(Author author) {
 
         AuthorDto authorDto = new AuthorDto();
         authorDto.setId(author.getId());

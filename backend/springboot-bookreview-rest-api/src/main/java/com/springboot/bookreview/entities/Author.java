@@ -2,15 +2,17 @@ package com.springboot.bookreview.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
-@Table(name = "authors", uniqueConstraints = {@UniqueConstraint(columnNames = {"name"})})
+@Table(name = "authors")
 public class Author {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     @Column(name = "firstName")
@@ -18,6 +20,9 @@ public class Author {
 
     @Column(name = "isDeleted", nullable = false)
     private boolean isDeleted = Boolean.FALSE;
+
+    @OneToMany(mappedBy = "author")
+    private Set<Book> books;
 
     public Author() {}
 

@@ -4,14 +4,14 @@ import jakarta.persistence.*;
 import org.springframework.boot.context.properties.bind.DefaultValue;
 
 @Entity
-@Table(name = "roles", uniqueConstraints = {@UniqueConstraint(columnNames = {"name"})})
+@Table(name = "roles")
 public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     @Column(name = "isDeleted", nullable = false)
