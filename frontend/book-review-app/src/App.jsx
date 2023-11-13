@@ -1,11 +1,10 @@
-import Login from './components/Login'
-import Signup from './components/Signup'
-import "./styles/App.css"
+import LoginPage from './pages/LoginPage'
+
 function App() {
   
   return (
     <>
-      <Signup />
+      <LoginPage />
     </>
   )
 }

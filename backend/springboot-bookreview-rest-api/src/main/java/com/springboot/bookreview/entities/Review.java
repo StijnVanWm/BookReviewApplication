@@ -1,6 +1,7 @@
 package com.springboot.bookreview.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.Length;
 
 import java.util.Set;
 
@@ -21,13 +22,13 @@ public class Review {
     @Column(name = "dislikes", nullable = false)
     private int dislikes = 0;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", nullable = false, columnDefinition = "varchar(max)")
     private String description;
 
     @Column(name = "isDeleted", nullable = false)
     private boolean isDeleted = Boolean.FALSE;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id", nullable = false)
     private Book book;
 
@@ -49,6 +50,11 @@ public class Review {
         this.description = description;
         this.book = book;
         this.user = user;
+    }
+    //Constructor for addDto mapping
+    public Review(int score, String description) {
+        this.score = score;
+        this.description = description;
     }
 
     public Long getId() {

@@ -40,7 +40,7 @@ public class BookServiceImpl implements BookService {
 
 
     //MAPPING
-    private BookDto mapEntityToDto(Book book) {
+    public static BookDto mapEntityToDto(Book book) {
 
         BookDto bookDto = new BookDto();
         bookDto.setId(book.getId());
