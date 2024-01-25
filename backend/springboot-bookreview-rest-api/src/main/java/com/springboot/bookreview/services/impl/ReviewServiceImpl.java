@@ -2,7 +2,7 @@ package com.springboot.bookreview.services.impl;
 
 import com.springboot.bookreview.dto.reviewDtos.ReviewAddDto;
 import com.springboot.bookreview.dto.reviewDtos.ReviewDto;
-import com.springboot.bookreview.dto.userDtos.UserDto;
+import com.springboot.bookreview.dto.reviewDtos.ReviewResponse;
 import com.springboot.bookreview.entities.Book;
 import com.springboot.bookreview.entities.Review;
 import com.springboot.bookreview.entities.User;
@@ -12,9 +12,15 @@ import com.springboot.bookreview.repositories.ReviewRepository;
 import com.springboot.bookreview.repositories.UserRepository;
 import com.springboot.bookreview.services.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,11 +40,31 @@ public class ReviewServiceImpl implements ReviewService {
         this.userRepository = userRepository;
     }
     @Override
-    public List<ReviewDto> getReviewsByBookId(Long bookId) {
-        return reviewRepository.getReviewsByBookId(bookId)
-                .stream()
-                .map(review -> mapEntityToDto(review))
-                .collect(Collectors.toList());
+    public ReviewResponse getReviewsByBookId(Long bookId, int pageNo, int pageSize, String sortBy) {
+
+        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortBy).descending());
+
+        Page<Review> reviews = reviewRepository.getReviewsByBookId(bookId, pageable);
+
+        List<Review> reviewsList = reviews.getContent();
+
+
+        List<ReviewDto> content = reviewsList
+                                    .stream()
+                                    .map(this::mapEntityToDto)
+                                    .collect(Collectors.toList());
+
+
+        ReviewResponse reviewResponse = new ReviewResponse();
+        reviewResponse.setContent(content);
+        reviewResponse.setPageNo(reviews.getNumber());
+        reviewResponse.setPageSize(reviews.getSize());
+        reviewResponse.setTotalElements(reviews.getTotalElements());
+        reviewResponse.setTotalPages(reviews.getTotalPages());
+        reviewResponse.setLastPage(reviews.isLast());
+
+        return reviewResponse;
+
     }
 
     @Override
@@ -64,6 +90,7 @@ public class ReviewServiceImpl implements ReviewService {
         ReviewDto reviewDto = new ReviewDto();
         reviewDto.setId(review.getId());
         reviewDto.setDescription(review.getDescription());
+        reviewDto.setCreationDateTime(review.getCreationDateTime());
         reviewDto.setLikes(review.getLikes());
         reviewDto.setDislikes(review.getDislikes());
         reviewDto.setScore(review.getScore());

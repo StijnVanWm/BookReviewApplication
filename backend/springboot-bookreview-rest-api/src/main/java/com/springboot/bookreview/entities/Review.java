@@ -3,6 +3,7 @@ package com.springboot.bookreview.entities;
 import jakarta.persistence.*;
 import org.hibernate.Length;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -25,6 +26,9 @@ public class Review {
     @Column(name = "description", nullable = false, columnDefinition = "varchar(max)")
     private String description;
 
+    @Column(name = "creation", nullable = false)
+    private LocalDateTime creationDateTime = LocalDateTime.now();
+
     @Column(name = "isDeleted", nullable = false)
     private boolean isDeleted = Boolean.FALSE;
 
@@ -42,7 +46,8 @@ public class Review {
     public Review() {
     }
 
-    public Review(Long id, int score, int likes, int dislikes, String description, Book book, User user) {
+    public Review(Long id, int score, int likes, int dislikes, String description,
+                  LocalDateTime creationDateTime, Book book, User user) {
         this.id = id;
         this.score = score;
         this.likes = likes;
@@ -50,6 +55,7 @@ public class Review {
         this.description = description;
         this.book = book;
         this.user = user;
+        this.creationDateTime = creationDateTime;
     }
     //Constructor for addDto mapping
     public Review(int score, String description) {
@@ -119,5 +125,13 @@ public class Review {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public LocalDateTime getCreationDateTime() {
+        return creationDateTime;
+    }
+
+    public void setCreationDateTime(LocalDateTime creationDateTime) {
+        this.creationDateTime = creationDateTime;
     }
 }

@@ -1,4 +1,4 @@
-
+import PropTypes from 'prop-types'
 const BookCard = (props) => {
 
     const { book: {title, bookCover, category: { name } } } = props;
@@ -17,6 +17,10 @@ const BookCard = (props) => {
             </div>
         </div>
   )
+}
+
+BookCard.propTypes = {
+    book: PropTypes.object
 }
 
 export default BookCard

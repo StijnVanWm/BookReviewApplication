@@ -1,16 +1,21 @@
-import axios from "axios";
 import { useState } from "react";
 import FormLoading from "../components/FormLoading";
+import { postReview } from "../api";
+import useVerifyUser from "../hooks/useVerifyUser";
+import useToast from "../hooks/useToast";
+import PropTypes from "prop-types"
 
 const AddReviewForm = (props) => {
     
     const { closeWindow, bookId } = props;
+    const { userId } = useVerifyUser();
+    const { notifyFailure } = useToast();
 
     const [isLoading, setIsLoading] = useState(false)
     const [reviewData, setReviewData] = useState({
         score: 4,
         description: '',
-        userId: 1
+        userId: userId
     })
 
     const handleInput = (e) => {
@@ -28,19 +33,15 @@ const AddReviewForm = (props) => {
         setIsLoading(true);
    
         try {
-
-            const response = await axios.post(`${import.meta.env.VITE_API_KEY}/books/${bookId}/reviews`, { ...reviewData })
+            const response = await postReview(bookId, reviewData);
             const { status } = response;
 
             if(status === 201) {
-                window.location.reload();
                 closeWindow();
             }
-            
-
         }
         catch(err) {
-            alert(err);
+            notifyFailure(err);
         }
         finally {
             setIsLoading(false);
@@ -78,6 +79,12 @@ const AddReviewForm = (props) => {
             </form>
         </div>
     )
+}
+
+
+AddReviewForm.propTypes = {
+    closeWindow: PropTypes.func,
+    bookId: PropTypes.number
 }
 
 export default AddReviewForm

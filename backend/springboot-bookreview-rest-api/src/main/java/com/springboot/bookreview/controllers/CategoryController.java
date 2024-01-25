@@ -30,6 +30,7 @@ public class CategoryController {
         return ResponseEntity.ok(categoryService.getAllCategories());
     }
 
+    //GET: api/categories/1
     @GetMapping("{id}")
     public ResponseEntity<CategoryDto> getCategoryById(@PathVariable(name = "id") Long categoryId) {
         return ResponseEntity.ok(categoryService.getCategoryById(categoryId));

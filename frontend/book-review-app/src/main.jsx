@@ -1,11 +1,14 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
 import "./index.css"
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import RootLayout from './navigation/RootLayout.jsx'
 import HomePage from './pages/HomePage.jsx'
 import BookDetailPage from './pages/BookDetailPage.jsx'
+import LoginPage from './pages/LoginPage.jsx'
+import RegisterPage from './pages/RegisterPage.jsx'
+import SearchContextProvider from './context/SearchContext.jsx'
+import VerifyUserContextProvider from './context/VerifyUserContext.jsx'
+import ToastContextProvider from './context/ToastContext.jsx'
 
 const browserRouter = createBrowserRouter([
   {
@@ -18,16 +21,28 @@ const browserRouter = createBrowserRouter([
       },
       {
         path: '/book/:id',
-        element: <BookDetailPage />
-      }
-
+        element:(
+          <VerifyUserContextProvider>
+            <BookDetailPage />
+          </VerifyUserContextProvider>
+        ) 
+      },
     ]
+  },
+  {
+    path: '/login',
+    element: <LoginPage />
+  },
+  {
+    path: '/Register',
+    element: <RegisterPage />
   }
-
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <RouterProvider router={browserRouter} />
-  </React.StrictMode>,
+  <ToastContextProvider>
+    <SearchContextProvider>
+      <RouterProvider router={browserRouter} />
+    </SearchContextProvider>
+  </ToastContextProvider>
 )

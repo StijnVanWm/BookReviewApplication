@@ -4,6 +4,8 @@ package com.springboot.bookreview.dto.reviewDtos;
 import com.springboot.bookreview.dto.bookDtos.BookDto;
 import com.springboot.bookreview.dto.userDtos.UserDto;
 
+import java.time.LocalDateTime;
+
 public class ReviewDto {
 
     private Long id;
@@ -15,6 +17,8 @@ public class ReviewDto {
     private int dislikes;
 
     private String description;
+
+    private LocalDateTime creationDateTime;
 
     private UserDto user;
 
@@ -65,5 +69,13 @@ public class ReviewDto {
 
     public void setUser(UserDto user) {
         this.user = user;
+    }
+
+    public LocalDateTime getCreationDateTime() {
+        return creationDateTime;
+    }
+
+    public void setCreationDateTime(LocalDateTime creationDateTime) {
+        this.creationDateTime = creationDateTime;
     }
 }

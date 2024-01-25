@@ -1,11 +1,14 @@
 import { Outlet } from "react-router-dom"
 import NavBar from "../components/NavBar"
+import VerifyUserContextProvider from "../context/VerifyUserContext"
 
 
 const RootLayout = () => {
   return (
     <div>
-        <NavBar />
+        <VerifyUserContextProvider>
+          <NavBar />
+        </VerifyUserContextProvider>
         <Outlet />
     </div>
   )
